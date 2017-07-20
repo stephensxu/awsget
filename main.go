@@ -5,10 +5,14 @@ import (
 	"os/exec"
 	"fmt"
 	"os"
-	"github.com/fatih/color"
+	"encoding/json"
 )
 
 func main() {
+	type InstanceList struct {
+		List string `json:list`
+	}
+
 	app := cli.NewApp()
 	app.Commands = []cli.Command{
 		{
@@ -24,8 +28,16 @@ func main() {
 					fmt.Println(err)
 				}
 
-				result := string(out)
-				color.Green(result)
+				// results := string(out)
+
+				data := &InstanceList{}
+				err = json.Unmarshal([]byte(out), data)
+
+				if err != nil {
+					fmt.Println(err)
+				}
+
+				fmt.Println(data)
 				return nil
 			},
 		},

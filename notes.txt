@@ -1,0 +1,88 @@
+        {
+            "OwnerId": "131961597084", 
+            "ReservationId": "r-460d0e83", 
+            "Groups": [
+                {
+                    "GroupName": "production", 
+                    "GroupId": "sg-a679e096"
+                }
+            ], 
+            "Instances": [
+                {
+                    "Monitoring": {
+                        "State": "disabled"
+                    }, 
+                    "PublicDnsName": "ec2-54-245-83-45.us-west-2.compute.amazonaws.com", 
+                    "RootDeviceType": "ebs", 
+                    "State": {
+                        "Code": 16, 
+                        "Name": "running"
+                    }, 
+                    "EbsOptimized": false, 
+                    "LaunchTime": "2017-06-05T17:03:32.000Z", 
+                    "PublicIpAddress": "54.245.83.45", 
+                    "PrivateIpAddress": "10.31.130.151", 
+                    "ProductCodes": [], 
+                    "StateTransitionReason": "", 
+                    "InstanceId": "i-7bc7f8bc", 
+                    "ImageId": "ami-cd5311fd", 
+                    "PrivateDnsName": "ip-10-31-130-151.us-west-2.compute.internal", 
+                    "KeyName": "gogobot-production", 
+                    "SecurityGroups": [
+                        {
+                            "GroupName": "production", 
+                            "GroupId": "sg-a679e096"
+                        }
+                    ], 
+                    "ClientToken": "", 
+                    "InstanceType": "c3.2xlarge", 
+                    "NetworkInterfaces": [], 
+                    "Placement": {
+                        "Tenancy": "default", 
+                        "GroupName": "", 
+                        "AvailabilityZone": "us-west-2b"
+                    }, 
+                    "Hypervisor": "xen", 
+                    "BlockDeviceMappings": [
+                        {
+                            "DeviceName": "/dev/sda1", 
+                            "Ebs": {
+                                "Status": "attached", 
+                                "DeleteOnTermination": true, 
+                                "VolumeId": "vol-87120630", 
+                                "AttachTime": "2016-04-04T21:36:32.000Z"
+                            }
+                        }, 
+                        {
+                            "DeviceName": "/dev/sdi1", 
+                            "Ebs": {
+                                "Status": "attached", 
+                                "DeleteOnTermination": false, 
+                                "VolumeId": "vol-3900148e", 
+                                "AttachTime": "2016-04-04T21:56:19.000Z"
+                            }
+                        }, 
+                        {
+                            "DeviceName": "/dev/sdi2", 
+                            "Ebs": {
+                                "Status": "attached", 
+                                "DeleteOnTermination": false, 
+                                "VolumeId": "vol-25001492", 
+                                "AttachTime": "2016-04-04T21:56:31.000Z"
+                            }
+                        }
+                    ], 
+                    "Architecture": "x86_64", 
+                    "KernelId": "aki-fc8f11cc", 
+                    "RootDeviceName": "/dev/sda1", 
+                    "VirtualizationType": "paravirtual", 
+                    "Tags": [
+                        {
+                            "Value": "prod-be1-mar2016", 
+                            "Key": "Name"
+                        }
+                    ], 
+                    "AmiLaunchIndex": 0
+                }
+            ]
+        }
