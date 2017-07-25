@@ -51,9 +51,8 @@ func main() {
 				amazonResponse := &AmazonResponse{}
 				json.Unmarshal(out, amazonResponse)
 				reservations := amazonResponse.Reservations
-				length := len(reservations)
 
-				resp := make([]SimplifiedResult, length)
+				results := []SimplifiedResult{}
 
 				for _, reservation := range reservations {
 					if reservation.Instances[0].PublicDnsName != "" {
@@ -63,11 +62,11 @@ func main() {
 						if len(reservation.Instances[0].Tags) >= 1 {
 							simplifiedResult.InstanceName = reservation.Instances[0].Tags[0].Value
 						}
-						resp = append(resp, simplifiedResult)
+						results = append(results, simplifiedResult)
 					}
 				}
 
-				for _, item := range resp {
+				for _, item := range results {
 					color.Green(string(item.InstanceName))
 					color.Green(string(item.PublicDnsName))
 					fmt.Println("")
