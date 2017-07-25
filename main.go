@@ -53,7 +53,7 @@ func main() {
 				reservations := amazonResponse.Reservations
 				length := len(reservations)
 
-				resp := make([]SimplifiedResult, 0, length)
+				resp := make([]SimplifiedResult, length)
 
 				for _, reservation := range reservations {
 					if reservation.Instances[0].PublicDnsName != "" {
