@@ -6,10 +6,11 @@ import (
 	"fmt"
 	"os"
 	"encoding/json"
+	"github.com/fatih/color"
 )
 
 type AmazonResponse struct {
-	Reservations map[string]interface{} `json:"Reservations"`
+	Reservations []Reservation `json:"Reservations"`
 }
 
 type Reservation struct {
@@ -25,10 +26,6 @@ type Tag struct {
 	Value string `json: "Value"`
 	Key string `json: "Key"`
 }
-
-// type Response struct {
-// 	SimplifiedResults []SimplifiedResult
-// }
 
 type SimplifiedResult struct {
 	InstanceName string
@@ -52,36 +49,29 @@ func main() {
 				}
 
 				amazonResponse := &AmazonResponse{}
-
 				json.Unmarshal(out, amazonResponse)
+				reservations := amazonResponse.Reservations
+				length := len(reservations)
 
-				instances := amazonResponse.Reservations
+				resp := make([]SimplifiedResult, 0, length)
 
-				fmt.Println(len(instances))
+				for _, reservation := range reservations {
+					if reservation.Instances[0].PublicDnsName != "" {
+						simplifiedResult := SimplifiedResult{}
+						simplifiedResult.PublicDnsName = reservation.Instances[0].PublicDnsName
 
-				if err != nil {
-					fmt.Println(err)
+						if len(reservation.Instances[0].Tags) >= 1 {
+							simplifiedResult.InstanceName = reservation.Instances[0].Tags[0].Value
+						}
+						resp = append(resp, simplifiedResult)
+					}
 				}
 
-				resp := []SimplifiedResult{}
-
-				// for _, instance := range instances {
-					// fmt.Println("hi")
-					// simplifiedResult := &SimplifiedResult{}
-					// simplifiedResult.InstanceName = instance.Tags[0].Value
-					// simplifiedResult.PublicDnsName = instance.PublicDnsName
-
-					// fmt.Println(string(simplifiedResult.PublicDnsName))
-					// fmt.Println(string(instance.PublicDnsName))
-				// }
-
-				final, err := json.Marshal(resp)
-
-				if err != nil {
-					fmt.Println(err)
+				for _, item := range resp {
+					color.Green(string(item.InstanceName))
+					color.Green(string(item.PublicDnsName))
+					fmt.Println("")
 				}
-
-				fmt.Println(string(final))
 				return nil
 			},
 		},
