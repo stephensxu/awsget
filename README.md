@@ -16,21 +16,27 @@ It's very annoying that I'd have to log in my AWS console from browser, do two-s
 I just really, really, really wanted a command that would give a list of instance name with their public DNS name like this from my terminal:
 
 be-1
+
 ec2-24-225-111-158.us-west-2.compute.amazonaws.com
 
 be-2
+
 ec2-25-225-111-158.us-west-2.compute.amazonaws.com
 
 fe-1
+
 ec2-26-225-111-158.us-west-2.compute.amazonaws.com
 
 fe-2
+
 ec2-27-225-111-158.us-west-2.compute.amazonaws.com
 
 stg
+
 ec2-28-225-111-158.us-west-2.compute.amazonaws.com
 
 mdev
+
 ec2-29-225-111-158.us-west-2.compute.amazonaws.com
 
 
