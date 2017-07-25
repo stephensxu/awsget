@@ -5,8 +5,32 @@ import (
 	"os/exec"
 	"fmt"
 	"os"
+	"encoding/json"
 	"github.com/fatih/color"
 )
+
+type AmazonResponse struct {
+	Reservations []Reservation `json:"Reservations"`
+}
+
+type Reservation struct {
+	Instances []Instance `json: "Instances"`
+}
+
+type Instance struct {
+	PublicDnsName string `json:"PublicDnsName"`
+	Tags []Tag `json:"Tags"`
+}
+
+type Tag struct {
+	Value string `json: "Value"`
+	Key string `json: "Key"`
+}
+
+type SimplifiedResult struct {
+	InstanceName string
+	PublicDnsName string
+}
 
 func main() {
 	app := cli.NewApp()
@@ -24,8 +48,29 @@ func main() {
 					fmt.Println(err)
 				}
 
-				result := string(out)
-				color.Green(result)
+				amazonResponse := &AmazonResponse{}
+				json.Unmarshal(out, amazonResponse)
+				reservations := amazonResponse.Reservations
+
+				results := []SimplifiedResult{}
+
+				for _, reservation := range reservations {
+					if reservation.Instances[0].PublicDnsName != "" {
+						simplifiedResult := SimplifiedResult{}
+						simplifiedResult.PublicDnsName = reservation.Instances[0].PublicDnsName
+
+						if len(reservation.Instances[0].Tags) >= 1 {
+							simplifiedResult.InstanceName = reservation.Instances[0].Tags[0].Value
+						}
+						results = append(results, simplifiedResult)
+					}
+				}
+
+				for _, item := range results {
+					color.Green(string(item.InstanceName))
+					color.Green(string(item.PublicDnsName))
+					fmt.Println("")
+				}
 				return nil
 			},
 		},
