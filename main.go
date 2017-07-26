@@ -55,15 +55,14 @@ func main() {
 				results := []SimplifiedResult{}
 
 				for _, reservation := range reservations {
-					if reservation.Instances[0].PublicDnsName != "" {
-						simplifiedResult := SimplifiedResult{}
-						simplifiedResult.PublicDnsName = reservation.Instances[0].PublicDnsName
-
-						if len(reservation.Instances[0].Tags) >= 1 {
-							simplifiedResult.InstanceName = reservation.Instances[0].Tags[0].Value
-						}
-						results = append(results, simplifiedResult)
+					instance := reservation.Instances[0]
+					if instance.PublicDnsName == "" || len(instance.Tags) == 0 {
+						continue
 					}
+					simplifiedResult := SimplifiedResult{}
+					simplifiedResult.PublicDnsName = instance.PublicDnsName
+					simplifiedResult.InstanceName = instance.Tags[0].Value
+					results = append(results, simplifiedResult)
 				}
 
 				for _, item := range results {
